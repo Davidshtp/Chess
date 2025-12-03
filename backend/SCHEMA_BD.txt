@@ -1,0 +1,137 @@
+================================================================================
+                    ESQUEMA DE BASE DE DATOS - CHESS TOURNAMENT
+================================================================================
+
+1. TABLA: usuario
+   ├── id_usuario (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── email (VARCHAR(100), UNIQUE, NOT NULL)
+   ├── contraseña (VARCHAR(255), NOT NULL)
+   ├── tipo_usuario (ENUM: 'jugador', 'organizador', 'admin')
+   ├── foto_perfil (VARCHAR(255), NULLABLE)
+   ├── fecha_creacion (DATETIME, DEFAULT CURRENT_TIMESTAMP)
+   └── activo (BOOLEAN, DEFAULT TRUE)
+
+================================================================================
+
+2. TABLA: jugador
+   ├── id_jugador (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── nombre (VARCHAR(50), NOT NULL)
+   ├── apellido (VARCHAR(50), NOT NULL)
+   ├── telefono (VARCHAR(20), NOT NULL)
+   ├── fk_direccion_id (INT, FOREIGN KEY → direccion.id_direccion, NOT NULL)
+   └── fk_usuario_id (INT, FOREIGN KEY → usuario.id_usuario, NOT NULL)
+
+================================================================================
+
+3. TABLA: organizador
+   ├── id_organizador (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── nombre_organizador (VARCHAR(100), NOT NULL)
+   ├── fk_direccion_id (INT, FOREIGN KEY → direccion.id_direccion, NOT NULL)
+   └── fk_usuario_id (INT, FOREIGN KEY → usuario.id_usuario, NOT NULL)
+
+================================================================================
+
+4. TABLA: pais
+   ├── id_pais (INT, PRIMARY KEY, AUTO_INCREMENT)
+   └── nombre_pais (VARCHAR(50), NOT NULL)
+
+================================================================================
+
+5. TABLA: ciudad
+   ├── id_ciudad (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── nombre_ciudad (VARCHAR(50), NOT NULL)
+   └── fk_pais_id (INT, FOREIGN KEY → pais.id_pais, NOT NULL)
+
+================================================================================
+
+6. TABLA: direccion
+   ├── id_direccion (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── direccion (VARCHAR(100), NOT NULL)
+   └── fk_ciudad_id (INT, FOREIGN KEY → ciudad.id_ciudad, NOT NULL)
+
+================================================================================
+
+7. TABLA: torneo
+   ├── id_torneo (INT, PRIMARY KEY, AUTO_INCREMENT)
+   └── nombre_torneo (VARCHAR(100), NOT NULL)
+
+================================================================================
+
+8. TABLA: torneo_organizador
+   ├── id_torneo_organizador (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── fk_torneo_id (INT, FOREIGN KEY → torneo.id_torneo, NOT NULL)
+   ├── fk_organizador_id (INT, FOREIGN KEY → organizador.id_organizador, NOT NULL)
+   ├── fecha_torneo (DATE, NOT NULL)
+   ├── costo (DECIMAL(10,2), NOT NULL)
+   └── fk_ciudad_id (INT, FOREIGN KEY → ciudad.id_ciudad, NOT NULL)
+
+================================================================================
+
+9. TABLA: inscripcion_torneo_organizador
+   ├── id_inscripcion (INT, PRIMARY KEY, AUTO_INCREMENT)
+   ├── fk_jugador_id (INT, FOREIGN KEY → jugador.id_jugador, NOT NULL)
+   ├── fk_torneo_organizador_id (INT, FOREIGN KEY → torneo_organizador.id_torneo_organizador, NOT NULL)
+   └── fecha_inscripcion (DATETIME, DEFAULT CURRENT_TIMESTAMP)
+
+================================================================================
+
+10. TABLA: estado_pago (ENUM)
+    └── Valores predefinidos:
+        ├── "Pendiente"
+        └── "Pagado"
+
+================================================================================
+
+11. TABLA: medio_pago (ENUM)
+    └── Valores predefinidos:
+        ├── "Tarjeta"
+        ├── "Efectivo"
+        └── "Transferencia"
+
+================================================================================
+
+12. TABLA: pago
+    ├── id_pago (INT, PRIMARY KEY, AUTO_INCREMENT)
+    ├── fk_inscripcion_id (INT, FOREIGN KEY → inscripcion_torneo_organizador.id_inscripcion, NOT NULL)
+    ├── medio_pago (ENUM: 'Tarjeta', 'Efectivo', 'Transferencia', NOT NULL)
+    ├── estado_pago (ENUM: 'Pendiente', 'Pagado', NOT NULL)
+    ├── monto (DECIMAL(10,2), NOT NULL)
+    └── fecha_pago (DATETIME, DEFAULT CURRENT_TIMESTAMP)
+
+================================================================================
+
+RELACIONES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+usuario (1) ─────────────────── (1) jugador
+usuario (1) ─────────────────── (1) organizador
+
+pais (1) ─────────────────── (*) ciudad
+ciudad (1) ─────────────────── (*) direccion
+
+direccion (1) ─────────────────── (*) jugador
+direccion (1) ─────────────────── (*) organizador
+
+torneo (1) ─────────────────── (*) torneo_organizador
+organizador (1) ─────────────────── (*) torneo_organizador
+ciudad (1) ─────────────────── (*) torneo_organizador
+
+jugador (*) ─────────────────── (*) torneo_organizador 
+                    (a través de inscripcion_torneo_organizador)
+
+inscripcion_torneo_organizador (1) ─────────────────── (*) pago
+
+================================================================================
+
+RESTRICCIONES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Email en usuario es UNIQUE
+✓ Dirección es OBLIGATORIA para jugador y organizador
+✓ Costo en torneo_organizador es lo que paga cada jugador
+✓ Nombre y apellido del jugador se obtienen de tabla jugador
+✓ Nombre del organizador se obtiene de tabla organizador
+✓ Foto de perfil se obtiene de tabla usuario
+✓ medio_pago y estado_pago son ENUM (valores predefinidos)
+
+================================================================================
