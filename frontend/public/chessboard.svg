@@ -1,0 +1,87 @@
+<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- Border -->
+  <rect x="15" y="15" width="250" height="250" fill="none" stroke="black" stroke-width="2"/>
+  
+  <!-- Chessboard 8x8 -->
+  <g>
+    <!-- Row 0 -->
+    <rect x="15" y="15" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="15" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="15" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="15" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="15" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="15" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="15" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="15" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 1 -->
+    <rect x="15" y="46.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="46.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="46.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="46.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="46.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="46.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="46.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="46.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 2 -->
+    <rect x="15" y="77.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="77.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="77.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="77.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="77.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="77.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="77.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="77.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 3 -->
+    <rect x="15" y="108.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="108.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="108.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="108.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="108.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="108.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="108.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="108.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 4 -->
+    <rect x="15" y="140" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="140" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="140" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="140" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="140" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="140" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="140" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="140" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 5 -->
+    <rect x="15" y="171.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="171.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="171.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="171.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="171.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="171.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="171.25" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="171.25" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 6 -->
+    <rect x="15" y="202.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="202.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="202.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="202.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="202.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="202.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="202.5" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="202.5" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    
+    <!-- Row 7 -->
+    <rect x="15" y="233.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="46.25" y="233.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="77.5" y="233.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="108.75" y="233.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="140" y="233.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="171.25" y="233.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="202.5" y="233.75" width="31.25" height="31.25" fill="black" stroke="black" stroke-width="0.5"/>
+    <rect x="233.75" y="233.75" width="31.25" height="31.25" fill="white" stroke="black" stroke-width="0.5"/>
+  </g>
+</svg>
