@@ -4,7 +4,7 @@ Ejecutar con: python seed_data.py
 """
 
 from app.database import SessionLocal
-from app.models.models import Pais, Ciudad, Organizador, Estado_Pago, Medio_Pago
+from app.models.models import Pais, Ciudad, Organizador, Torneo
 from datetime import datetime
 
 def seed_database():
@@ -18,23 +18,23 @@ def seed_database():
         
         print("🌍 Sembrando países...")
         paises = [
-            Pais(nombre_pais="CO"),  # Colombia
-            Pais(nombre_pais="PE"),  # Perú
-            Pais(nombre_pais="EC"),  # Ecuador
-            Pais(nombre_pais="VE"),  # Venezuela
-            Pais(nombre_pais="AR"),  # Argentina
-            Pais(nombre_pais="CL"),  # Chile
-            Pais(nombre_pais="BO"),  # Bolivia
-            Pais(nombre_pais="PY"),  # Paraguay
-            Pais(nombre_pais="UY"),  # Uruguay
-            Pais(nombre_pais="BR"),  # Brasil
+            Pais(nombre_pais="Colombia"),
+            Pais(nombre_pais="Perú"),
+            Pais(nombre_pais="Ecuador"),
+            Pais(nombre_pais="Venezuela"),
+            Pais(nombre_pais="Argentina"),
+            Pais(nombre_pais="Chile"),
+            Pais(nombre_pais="Bolivia"),
+            Pais(nombre_pais="Paraguay"),
+            Pais(nombre_pais="Uruguay"),
+            Pais(nombre_pais="Brasil"),
         ]
         db.add_all(paises)
         db.commit()
         print(f"✓ {len(paises)} países agregados")
         
         # Obtener Colombia (id 1)
-        colombia = db.query(Pais).filter_by(nombre_pais="CO").first()
+        colombia = db.query(Pais).filter_by(nombre_pais="Colombia").first()
         
         print("🏙️ Sembrando ciudades de Colombia...")
         ciudades_colombia = [
@@ -57,9 +57,9 @@ def seed_database():
         
         # Agregar ciudades para otros países (ejemplos)
         print("🏙️ Sembrando ciudades de otros países...")
-        peru = db.query(Pais).filter_by(nombre_pais="PE").first()
-        ecuador = db.query(Pais).filter_by(nombre_pais="EC").first()
-        argentina = db.query(Pais).filter_by(nombre_pais="AR").first()
+        peru = db.query(Pais).filter_by(nombre_pais="Perú").first()
+        ecuador = db.query(Pais).filter_by(nombre_pais="Ecuador").first()
+        argentina = db.query(Pais).filter_by(nombre_pais="Argentina").first()
         
         otras_ciudades = [
             Ciudad(nombre_ciudad="Lima", fk_pais_id=peru.id_pais),
@@ -75,55 +75,25 @@ def seed_database():
         db.commit()
         print(f"✓ {len(otras_ciudades)} ciudades de otros países agregadas")
         
-        # Agregar organizadores
-        print("👥 Sembrando organizadores...")
-        bogota = db.query(Ciudad).filter_by(nombre_ciudad="Bogotá").first()
-        medellin = db.query(Ciudad).filter_by(nombre_ciudad="Medellín").first()
-        cali = db.query(Ciudad).filter_by(nombre_ciudad="Cali").first()
-        
-        organizadores = [
-            Organizador(nombre_organizador="FECAJEDREZ", fk_ciudad_id=bogota.id_ciudad),
-            Organizador(nombre_organizador="Club Ajedrez Bogotá", fk_ciudad_id=bogota.id_ciudad),
-            Organizador(nombre_organizador="Club Ajedrez Medellín", fk_ciudad_id=medellin.id_ciudad),
-            Organizador(nombre_organizador="Ajedrez Cali", fk_ciudad_id=cali.id_ciudad),
+        # Agregar torneos
+        print("🏆 Sembrando torneos...")
+        torneos = [
+            Torneo(nombre_torneo="Torneo Regional"),
+            Torneo(nombre_torneo="Torneo Blitz"),
+            Torneo(nombre_torneo="Torneo Juvenil"),
+            Torneo(nombre_torneo="Torneo Rápido"),
+            Torneo(nombre_torneo="Torneo Abierto"),
+            Torneo(nombre_torneo="Torneo Internacional"),
         ]
-        db.add_all(organizadores)
+        db.add_all(torneos)
         db.commit()
-        print(f"✓ {len(organizadores)} organizadores agregados")
-        
-        # Agregar estados de pago
-        print("💳 Sembrando estados de pago...")
-        estados_pago = [
-            Estado_Pago(estado_pago="Pendiente"),
-            Estado_Pago(estado_pago="Pagado"),
-            Estado_Pago(estado_pago="Cancelado"),
-            Estado_Pago(estado_pago="Reembolso"),
-        ]
-        db.add_all(estados_pago)
-        db.commit()
-        print(f"✓ {len(estados_pago)} estados de pago agregados")
-        
-        # Agregar medios de pago
-        print("💰 Sembrando medios de pago...")
-        medios_pago = [
-            Medio_Pago(nombre_medio="Efectivo"),
-            Medio_Pago(nombre_medio="Tarjeta de Crédito"),
-            Medio_Pago(nombre_medio="Tarjeta de Débito"),
-            Medio_Pago(nombre_medio="Transferencia Bancaria"),
-            Medio_Pago(nombre_medio="PayPal"),
-            Medio_Pago(nombre_medio="Otro"),
-        ]
-        db.add_all(medios_pago)
-        db.commit()
-        print(f"✓ {len(medios_pago)} medios de pago agregados")
+        print(f"✓ {len(torneos)} torneos agregados")
         
         print("\n✅ ¡Base de datos sembraded exitosamente!")
         print("\nResumen:")
         print(f"  - Países: {db.query(Pais).count()}")
         print(f"  - Ciudades: {db.query(Ciudad).count()}")
-        print(f"  - Organizadores: {db.query(Organizador).count()}")
-        print(f"  - Estados de Pago: {db.query(Estado_Pago).count()}")
-        print(f"  - Medios de Pago: {db.query(Medio_Pago).count()}")
+        print(f"  - Torneos: {db.query(Torneo).count()}")
         
     except Exception as e:
         print(f"❌ Error al sembrar datos: {e}")

@@ -147,7 +147,7 @@ function RegisterOrganizador() {
                 name="nombre_organizador"
                 value={formData.nombre_organizador}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -163,7 +163,7 @@ function RegisterOrganizador() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -179,7 +179,7 @@ function RegisterOrganizador() {
                   name="pais"
                   value={formData.pais}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   required
                 >
                   <option value="">País</option>
@@ -199,7 +199,7 @@ function RegisterOrganizador() {
                   name="ciudad"
                   value={formData.ciudad}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   required
                   disabled={!formData.pais}
                 >
@@ -224,7 +224,7 @@ function RegisterOrganizador() {
                 name="direccion"
                 value={formData.direccion}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -241,7 +241,7 @@ function RegisterOrganizador() {
                   name="contraseña"
                   value={formData.contraseña}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   minLength="6"
                   required
                 />
@@ -256,7 +256,7 @@ function RegisterOrganizador() {
                   name="contraseñaConfirm"
                   value={formData.contraseñaConfirm}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   minLength="6"
                   required
                 />
@@ -267,7 +267,7 @@ function RegisterOrganizador() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-semibold py-2 rounded-lg transition text-sm mt-2"
+              className="w-full bg-green-800 hover:bg-green-900 disabled:bg-gray-400 text-white font-semibold py-2 rounded-lg transition text-sm mt-2"
             >
               {loading ? 'Registrando...' : 'Crear Cuenta'}
             </button>
@@ -277,13 +277,13 @@ function RegisterOrganizador() {
           <div className="mt-4 text-center space-y-2">
             <p className="text-gray-600 text-sm">
               ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-green-600 hover:text-green-700 font-semibold">
+              <Link to="/login" className="text-green-800 hover:text-green-900 font-semibold">
                 Inicia sesión
               </Link>
             </p>
             <p className="text-gray-600 text-sm">
               ¿Eres jugador?{' '}
-              <Link to="/register-jugador" className="text-blue-600 hover:text-blue-700 font-semibold">
+              <Link to="/register-jugador" className="text-blue-800 hover:text-blue-900 font-semibold">
                 Regístrate aquí
               </Link>
             </p>

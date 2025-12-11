@@ -138,13 +138,13 @@ function Login() {
           <div className="space-y-2.5">
             <Link
               to="/register-jugador"
-              className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-sm"
+              className="block w-full text-center bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-sm"
             >
               ♟ Registrate como Jugador
             </Link>
             <Link
               to="/register-organizador"
-              className="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-sm"
+              className="block w-full text-center bg-green-800 hover:bg-green-900 text-white font-semibold py-2.5 rounded-lg transition duration-200 text-sm"
             >
               ♛ Registrate como Organizador
             </Link>

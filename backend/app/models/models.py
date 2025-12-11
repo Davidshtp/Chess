@@ -88,7 +88,7 @@ class Jugador(Base):
     # Relaciones
     usuario = relationship("Usuario", back_populates="jugador")
     direccion = relationship("Direccion", back_populates="jugadores")
-    inscripciones = relationship("InscripcionTorneoOrganizador", back_populates="jugador")
+    inscripciones = relationship("Inscripcion", back_populates="jugador")
 
 
 class Organizador(Base):
@@ -124,38 +124,45 @@ class TorneoOrganizador(Base):
     fecha_torneo = Column(Date, nullable=False)
     costo = Column(Numeric(10, 2), nullable=False)
     fk_ciudad_id = Column(Integer, ForeignKey("ciudad.id_ciudad"), nullable=False)
-    limite_jugadores = Column(Integer, default=100, nullable=False)
     
     # Relaciones
     torneo = relationship("Torneo", back_populates="torneos_organizadores")
     organizador = relationship("Organizador", back_populates="torneos_organizadores")
     ciudad = relationship("Ciudad", back_populates="torneos_organizadores")
-    inscripciones = relationship("InscripcionTorneoOrganizador", back_populates="torneo_organizador")
+    inscripciones_torneo = relationship("InscripcionTorneoOrganizador", back_populates="torneo_organizador")
+
+
+class Inscripcion(Base):
+    __tablename__ = "inscripcion"
+    
+    id_inscripcion = Column(Integer, primary_key=True, index=True)
+    fk_jugador_id = Column(Integer, ForeignKey("jugador.id_jugador"), nullable=False)
+    fk_pago_id = Column(Integer, ForeignKey("pago.id_pago"), nullable=True)
+    fecha_inscripcion = Column(DateTime, default=datetime.utcnow)
+    
+    # Relaciones
+    jugador = relationship("Jugador", back_populates="inscripciones")
+    pago = relationship("Pago", uselist=False, cascade="all, delete-orphan", foreign_keys=[fk_pago_id], single_parent=True)
+    torneos = relationship("InscripcionTorneoOrganizador", back_populates="inscripcion", cascade="all, delete-orphan")
 
 
 class InscripcionTorneoOrganizador(Base):
     __tablename__ = "inscripcion_torneo_organizador"
     
-    id_inscripcion = Column(Integer, primary_key=True, index=True)
-    fk_jugador_id = Column(Integer, ForeignKey("jugador.id_jugador"), nullable=False)
+    id_inscripcion_relacion = Column(Integer, primary_key=True, index=True)
+    fk_inscripcion_id = Column(Integer, ForeignKey("inscripcion.id_inscripcion"), nullable=False)
     fk_torneo_organizador_id = Column(Integer, ForeignKey("torneo_organizador.id_torneo_organizador"), nullable=False)
-    fecha_inscripcion = Column(DateTime, default=datetime.utcnow)
     
     # Relaciones
-    jugador = relationship("Jugador", back_populates="inscripciones")
-    torneo_organizador = relationship("TorneoOrganizador", back_populates="inscripciones")
-    pago = relationship("Pago", back_populates="inscripcion", uselist=False)
+    inscripcion = relationship("Inscripcion", back_populates="torneos")
+    torneo_organizador = relationship("TorneoOrganizador", back_populates="inscripciones_torneo")
 
 
 class Pago(Base):
     __tablename__ = "pago"
     
     id_pago = Column(Integer, primary_key=True, index=True)
-    fk_inscripcion_id = Column(Integer, ForeignKey("inscripcion_torneo_organizador.id_inscripcion"), nullable=False)
     medio_pago = Column(Enum(MedioPago), nullable=False)
     estado_pago = Column(Enum(EstadoPago), nullable=False)
     monto = Column(Numeric(10, 2), nullable=False)
     fecha_pago = Column(DateTime, default=datetime.utcnow)
-    
-    # Relaciones
-    inscripcion = relationship("InscripcionTorneoOrganizador", back_populates="pago")

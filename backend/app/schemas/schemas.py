@@ -117,6 +117,7 @@ class JugadorUpdate(BaseModel):
     apellido: Optional[str] = None
     telefono: Optional[str] = None
     fk_direccion_id: Optional[int] = None
+    direccion: Optional[str] = None
 
 
 class JugadorResponse(BaseModel):
@@ -145,6 +146,7 @@ class OrganizadorCreate(BaseModel):
 class OrganizadorUpdate(BaseModel):
     nombre_organizador: Optional[str] = None
     fk_direccion_id: Optional[int] = None
+    direccion: Optional[str] = None
 
 
 class OrganizadorResponse(BaseModel):
@@ -179,7 +181,6 @@ class TorneoOrganizadorCreate(BaseModel):
     fecha_torneo: date = Field(..., description="Fecha del torneo (no puede ser en el pasado)")
     costo: float = Field(..., gt=0, description="Costo debe ser mayor a 0")
     fk_ciudad_id: int
-    limite_jugadores: int = Field(default=100, ge=2, le=1000, description="Límite de jugadores (2-1000)")
     
     @field_validator('fecha_torneo')
     @classmethod
@@ -206,7 +207,6 @@ class TorneoOrganizadorResponse(BaseModel):
     fecha_torneo: date
     costo: float
     fk_ciudad_id: int
-    limite_jugadores: int
     
     class Config:
         from_attributes = True
@@ -215,10 +215,12 @@ class TorneoOrganizadorResponse(BaseModel):
 class TorneoOrganizadorDetalle(BaseModel):
     id_torneo_organizador: int
     torneo: TorneoResponse
-    organizador: OrganizadorResponse
+    organizador: Optional[OrganizadorResponse] = None
     fecha_torneo: date
     costo: float
     ciudad_nombre: str
+    inscripciones_count: int = 0
+    limite_jugadores: int = 100
     
     class Config:
         from_attributes = True

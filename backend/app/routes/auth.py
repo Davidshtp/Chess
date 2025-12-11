@@ -128,6 +128,11 @@ def login(usuario_login: UsuarioLogin, db: Session = Depends(get_db)):
             payload["apellido"] = jugador.apellido
             payload["telefono"] = jugador.telefono
             payload["fk_direccion_id"] = jugador.fk_direccion_id
+            # Agregar información de la dirección
+            if jugador.direccion:
+                payload["direccion"] = jugador.direccion.direccion
+                payload["ciudad"] = jugador.direccion.ciudad.nombre_ciudad
+                payload["pais"] = jugador.direccion.ciudad.pais.nombre_pais
     
     elif usuario.tipo_usuario == "organizador":
         organizador = db.query(Organizador).filter(Organizador.fk_usuario_id == usuario.id_usuario).first()
@@ -135,6 +140,11 @@ def login(usuario_login: UsuarioLogin, db: Session = Depends(get_db)):
             payload["id_organizador"] = organizador.id_organizador
             payload["nombre_organizador"] = organizador.nombre_organizador
             payload["fk_direccion_id"] = organizador.fk_direccion_id
+            # Agregar información de la dirección
+            if organizador.direccion:
+                payload["direccion"] = organizador.direccion.direccion
+                payload["ciudad"] = organizador.direccion.ciudad.nombre_ciudad
+                payload["pais"] = organizador.direccion.ciudad.pais.nombre_pais
     
     # Crear token JWT
     access_token = create_access_token(payload)

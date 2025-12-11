@@ -6,7 +6,6 @@ function ProtectedRoute({ element }) {
   if (!authService.isAuthenticated()) {
     return <Navigate to="/login" />;
   }
-
   return element;
 }
 

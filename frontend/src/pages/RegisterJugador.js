@@ -152,7 +152,7 @@ function RegisterJugador() {
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   required
                 />
               </div>
@@ -183,7 +183,7 @@ function RegisterJugador() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -199,7 +199,7 @@ function RegisterJugador() {
                 name="telefono"
                 value={formData.telefono}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -215,7 +215,7 @@ function RegisterJugador() {
                   name="pais"
                   value={formData.pais}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   required
                 >
                   <option value="">País</option>
@@ -235,7 +235,7 @@ function RegisterJugador() {
                   name="ciudad"
                   value={formData.ciudad}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   required
                   disabled={!formData.pais}
                 >
@@ -260,7 +260,7 @@ function RegisterJugador() {
                 name="direccion"
                 value={formData.direccion}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -277,7 +277,7 @@ function RegisterJugador() {
                   name="contraseña"
                   value={formData.contraseña}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   minLength="6"
                   required
                 />
@@ -292,7 +292,7 @@ function RegisterJugador() {
                   name="contraseñaConfirm"
                   value={formData.contraseñaConfirm}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
                   minLength="6"
                   required
                 />
@@ -303,7 +303,7 @@ function RegisterJugador() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-2 rounded-lg transition text-sm mt-2"
+              className="w-full bg-blue-800 hover:bg-blue-900 disabled:bg-gray-400 text-white font-semibold py-2 rounded-lg transition text-sm mt-2"
             >
               {loading ? 'Registrando...' : 'Crear Cuenta'}
             </button>
@@ -313,13 +313,13 @@ function RegisterJugador() {
           <div className="mt-4 text-center space-y-2">
             <p className="text-gray-600 text-sm">
               ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-blue-600 hover:text-blue-700 font-semibold">
+              <Link to="/login" className="text-blue-800 hover:text-blue-900 font-semibold">
                 Inicia sesión
               </Link>
             </p>
             <p className="text-gray-600 text-sm">
               ¿Eres organizador?{' '}
-              <Link to="/register-organizador" className="text-green-600 hover:text-green-700 font-semibold">
+              <Link to="/register-organizador" className="text-green-800 hover:text-green-900 font-semibold">
                 Regístrate aquí
               </Link>
             </p>

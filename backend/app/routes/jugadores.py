@@ -138,8 +138,15 @@ def actualizar_jugador(
                 detail="Dirección no encontrada"
             )
     
-    # Actualizar solo los campos que se envían
-    datos = jugador_data.dict(exclude_unset=True)
+    # Si se envía el texto de la dirección, actualizar la dirección existente
+    if jugador_data.direccion:
+        direccion_actual = jugador.direccion
+        if direccion_actual:
+            direccion_actual.direccion = jugador_data.direccion
+            db.add(direccion_actual)
+    
+    # Actualizar solo los campos que se envían (excepto 'direccion' que ya manejamos)
+    datos = jugador_data.dict(exclude_unset=True, exclude={'direccion'})
     for campo, valor in datos.items():
         setattr(jugador, campo, valor)
     

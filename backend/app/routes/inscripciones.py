@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.database import get_db
 from app.models.models import (
-    InscripcionTorneoOrganizador, Jugador, TorneoOrganizador, 
+    Inscripcion, InscripcionTorneoOrganizador, Jugador, TorneoOrganizador, 
     Pago, EstadoPago, MedioPago
 )
 from app.schemas.schemas import InscripcionCreate
@@ -54,38 +54,44 @@ def inscribir_jugador(
         )
     
     # Validar que el jugador no esté ya inscrito
-    inscripcion_existente = db.query(InscripcionTorneoOrganizador).filter(
-        InscripcionTorneoOrganizador.fk_jugador_id == id_jugador,
+    inscripcion_existente = db.query(InscripcionTorneoOrganizador).join(Inscripcion).filter(
+        Inscripcion.fk_jugador_id == id_jugador,
         InscripcionTorneoOrganizador.fk_torneo_organizador_id == inscripcion_data.fk_torneo_organizador_id
     ).first()
     if inscripcion_existente:
         raise YaInscrito()
     
-    # Validar que el torneo no ha alcanzado el límite de jugadores
-    inscripciones_actuales = db.query(func.count(InscripcionTorneoOrganizador.id_inscripcion)).filter(
-        InscripcionTorneoOrganizador.fk_torneo_organizador_id == inscripcion_data.fk_torneo_organizador_id
-    ).scalar()
-    
-    if inscripciones_actuales >= torneo_org.limite_jugadores:
-        raise TorneoLleno()
-    
-    # Crear inscripción
-    nueva_inscripcion = InscripcionTorneoOrganizador(
-        fk_jugador_id=id_jugador,
-        fk_torneo_organizador_id=inscripcion_data.fk_torneo_organizador_id
+    # Crear inscripción base primero (sin pago)
+    nueva_inscripcion = Inscripcion(
+        fk_jugador_id=id_jugador
     )
     db.add(nueva_inscripcion)
-    db.flush()  # Para obtener el id sin commitear
+    db.flush()  # Para obtener el id de inscripción
     
     # Crear pago automáticamente (para pruebas, siempre con estado "Pagado")
     nuevo_pago = Pago(
-        fk_inscripcion_id=nueva_inscripcion.id_inscripcion,
         medio_pago=inscripcion_data.medio_pago,
         estado_pago=EstadoPago.pagado,  # Para pruebas
         monto=torneo_org.costo
     )
     db.add(nuevo_pago)
+    db.flush()  # Para obtener el id del pago
+    
+    # Actualizar inscripción con el id del pago
+    nueva_inscripcion.fk_pago_id = nuevo_pago.id_pago
+    
+    # Crear relación inscripción-torneo
+    inscripcion_torneo = InscripcionTorneoOrganizador(
+        fk_inscripcion_id=nueva_inscripcion.id_inscripcion,
+        fk_torneo_organizador_id=inscripcion_data.fk_torneo_organizador_id
+    )
+    db.add(inscripcion_torneo)
     db.commit()
+    
+    # Obtener el número de inscripciones actuales para el torneo
+    inscripciones_actuales = db.query(func.count(InscripcionTorneoOrganizador.id_inscripcion_relacion)).filter(
+        InscripcionTorneoOrganizador.fk_torneo_organizador_id == inscripcion_data.fk_torneo_organizador_id
+    ).scalar()
     
     return {
         "id_inscripcion": nueva_inscripcion.id_inscripcion,
@@ -95,8 +101,7 @@ def inscribir_jugador(
         "estado_pago": "Pagado",
         "monto": float(torneo_org.costo),
         "medio_pago": inscripcion_data.medio_pago,
-        "jugadores_inscritos": inscripciones_actuales + 1,
-        "limite_torneo": torneo_org.limite_jugadores,
+        "jugadores_inscritos": inscripciones_actuales,
         "mensaje": "Inscripción exitosa"
     }
 
@@ -125,27 +130,34 @@ def listar_inscripciones_jugador(
             detail="Jugador no encontrado"
         )
     
-    inscripciones = db.query(InscripcionTorneoOrganizador).filter(
-        InscripcionTorneoOrganizador.fk_jugador_id == id_jugador
+    # Obtener inscripciones del jugador
+    inscripciones = db.query(Inscripcion).filter(
+        Inscripcion.fk_jugador_id == id_jugador
     ).all()
     
     resultado = []
     for inscripcion in inscripciones:
-        torneo_org = inscripcion.torneo_organizador
-        pago = inscripcion.pago
+        # Obtener los torneos asociados a esta inscripción
+        torneos = db.query(InscripcionTorneoOrganizador).filter(
+            InscripcionTorneoOrganizador.fk_inscripcion_id == inscripcion.id_inscripcion
+        ).all()
         
-        resultado.append({
-            "id_inscripcion": inscripcion.id_inscripcion,
-            "id_torneo_organizador": torneo_org.id_torneo_organizador,
-            "nombre_torneo": torneo_org.torneo.nombre_torneo,
-            "nombre_organizador": torneo_org.organizador.nombre_organizador,
-            "ciudad": torneo_org.ciudad.nombre_ciudad,
-            "fecha_torneo": torneo_org.fecha_torneo,
-            "costo": float(torneo_org.costo),
-            "fecha_inscripcion": inscripcion.fecha_inscripcion,
-            "estado_pago": pago.estado_pago if pago else "Sin pago",
-            "medio_pago": pago.medio_pago if pago else "N/A"
-        })
+        for inst_torneo in torneos:
+            torneo_org = inst_torneo.torneo_organizador
+            pago = inscripcion.pago
+            
+            resultado.append({
+                "id_inscripcion": inscripcion.id_inscripcion,
+                "id_torneo_organizador": torneo_org.id_torneo_organizador,
+                "nombre_torneo": torneo_org.torneo.nombre_torneo,
+                "nombre_organizador": torneo_org.organizador.nombre_organizador,
+                "ciudad": torneo_org.ciudad.nombre_ciudad,
+                "fecha_torneo": torneo_org.fecha_torneo,
+                "costo": float(torneo_org.costo),
+                "fecha_inscripcion": inscripcion.fecha_inscripcion,
+                "estado_pago": pago.estado_pago if pago else "Sin pago",
+                "medio_pago": pago.medio_pago if pago else "N/A"
+            })
     
     return resultado
 
@@ -157,8 +169,8 @@ def cancelar_inscripcion(
     db: Session = Depends(get_db)
 ):
     """Cancelar la inscripción de un jugador a un torneo (solo el jugador autenticado)."""
-    inscripcion = db.query(InscripcionTorneoOrganizador).filter(
-        InscripcionTorneoOrganizador.id_inscripcion == id_inscripcion
+    inscripcion = db.query(Inscripcion).filter(
+        Inscripcion.id_inscripcion == id_inscripcion
     ).first()
     
     if not inscripcion:
@@ -176,10 +188,16 @@ def cancelar_inscripcion(
             detail="No tienes permiso para cancelar esta inscripción"
         )
     
-    # Eliminar pago asociado
-    pago = db.query(Pago).filter(Pago.fk_inscripcion_id == id_inscripcion).first()
-    if pago:
-        db.delete(pago)
+    # Eliminar relaciones inscripción-torneo
+    db.query(InscripcionTorneoOrganizador).filter(
+        InscripcionTorneoOrganizador.fk_inscripcion_id == id_inscripcion
+    ).delete()
+    
+    # Eliminar pago asociado (si existe)
+    if inscripcion.fk_pago_id:
+        pago = db.query(Pago).filter(Pago.id_pago == inscripcion.fk_pago_id).first()
+        if pago:
+            db.delete(pago)
     
     # Eliminar inscripción
     db.delete(inscripcion)

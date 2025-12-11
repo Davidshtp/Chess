@@ -1,10 +1,5 @@
 import { Link } from 'react-router-dom';
-import authService from '../services/authService';
-
 function Home() {
-  const isAuthenticated = authService.isAuthenticated();
-  const user = authService.getUser();
-
   return (
     <div className="min-h-screen bg-white">
       {/* Navegación */}
@@ -15,29 +10,14 @@ function Home() {
             <h1 className="text-2xl font-bold text-black">Chess Tournament</h1>
           </div>
           <div className="space-x-4 flex items-center">
-            {isAuthenticated ? (
-              <>
-                <span className="text-gray-700">Bienvenido, {user?.nombre || user?.nombre_organizador}</span>
-                <button
-                  onClick={() => {
-                    authService.logout();
-                    window.location.href = '/login';
-                  }}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
-                >
-                  Cerrar sesión
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-lg transition"
-                >
-                  Iniciar sesión
-                </Link>
-              </>
-            )}
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-lg transition"
+              >
+                Iniciar sesión
+              </Link>
+            </>
           </div>
         </div>
       </nav>
@@ -56,46 +36,22 @@ function Home() {
                   Organiza torneos profesionales, compite con jugadores de todo el mundo y sigue tu progreso en tiempo real.
                 </p>
               </div>
-
-              {!isAuthenticated && (
-                <div className="space-y-4 pt-6">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Link
-                      to="/register-jugador"
-                      className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md text-center"
-                    >
-                      ♟ Registrate como Jugador
-                    </Link>
-                    <Link
-                      to="/register-organizador"
-                      className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition shadow-md text-center"
-                    >
-                      ♛ Registrate como Organizador
-                    </Link>
-                  </div>
+              <div className="space-y-4 pt-6">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    to="/register-jugador"
+                    className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md text-center"
+                  >
+                    ♟ Registrate como Jugador
+                  </Link>
+                  <Link
+                    to="/register-organizador"
+                    className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition shadow-md text-center"
+                  >
+                    ♛ Registrate como Organizador
+                  </Link>
                 </div>
-              )}
-
-              {isAuthenticated && (
-                <div className="space-y-4 pt-6">
-                  {user?.tipo_usuario === 'jugador' ? (
-                    <Link
-                      to="/dashboard-jugador"
-                      className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md"
-                    >
-                      Ir al Dashboard de Jugador
-                    </Link>
-                  ) : (
-                    <Link
-                      to="/dashboard-organizador"
-                      className="inline-block px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition shadow-md"
-                    >
-                      Ir al Dashboard de Organizador
-                    </Link>
-                  )}
-                </div>
-              )}
-
+              </div>
               <div className="pt-8 grid grid-cols-3 gap-8 border-t border-gray-200">
                 <div>
                   <div className="text-3xl font-bold text-black">500+</div>
@@ -149,8 +105,8 @@ function Home() {
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
             La plataforma completa para organizar, participar y mejorar en torneos de ajedrez
           </p>
-          
-          <div className="grid md:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-3 gap-8 text-black">
             {[
               {
                 icon: '♛',
@@ -185,22 +141,20 @@ function Home() {
           <p className="text-xl text-gray-300 mb-10">
             Únete a miles de jugadores que ya están compitiendo
           </p>
-          {!isAuthenticated && (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/register-jugador"
-                className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-lg"
-              >
-                Soy Jugador
-              </Link>
-              <Link
-                to="/register-organizador"
-                className="px-10 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition shadow-lg"
-              >
-                Soy Organizador
-              </Link>
-            </div>
-          )}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/register-jugador"
+              className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-lg"
+            >
+              Soy Jugador
+            </Link>
+            <Link
+              to="/register-organizador"
+              className="px-10 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition shadow-lg"
+            >
+              Soy Organizador
+            </Link>
+          </div>
         </div>
       </section>
 
